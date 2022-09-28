@@ -49,8 +49,8 @@ return [
         'jsBaseUrl' => 'js/',
         'paths' => [
             'plugins' => [ROOT . DS . 'plugins' . DS],
-            'templates' => [APP . 'Template' . DS],
-            'locales' => [APP . 'Locale' . DS],
+            'templates' => [APP . 'cakephp/Template' . DS],
+            'locales' => [APP . 'cakephp/Locale' . DS],
         ],
     ],
 
