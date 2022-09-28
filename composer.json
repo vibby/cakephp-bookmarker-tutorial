@@ -21,7 +21,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/cakephp"
+            "App\\": "src/cakephp",
+            "Application\\": "src/Application",
+            "Domain\\": "src/Domain"
         }
     },
     "autoload-dev": {
