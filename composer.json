@@ -35,5 +35,11 @@
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "aura/installer-default": true,
+            "cakephp/plugin-installer": true
+        }
+    }
 }
