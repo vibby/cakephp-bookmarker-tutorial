@@ -11,10 +11,11 @@ use Exception;
 
 /**
  * @property BookmarkRepositoryComponent $BookmarkRepository
+ * @property TagRepositoryComponent $TagRepository
  */
 class ContainerComponent extends Component
 {
-    public $components = ['BookmarkRepository'];
+    public $components = ['BookmarkRepository', 'TagRepository'];
     private $container = [];
 
     public function __construct(ComponentRegistry $registry, array $config = [])
@@ -22,7 +23,7 @@ class ContainerComponent extends Component
         parent::__construct($registry, $config);
 
         $this->container[GetBookmarkHandler::class] = new GetBookmarkHandler($this->BookmarkRepository); // On crée nos services ici
-        $this->container[BookmarkUpdater::class] = new BookmarkUpdater();
+        $this->container[BookmarkUpdater::class] = new BookmarkUpdater($this->TagRepository);
         $this->container[UpdateBookmarkHandler::class] = new UpdateBookmarkHandler($this->BookmarkRepository, $this->container[BookmarkUpdater::class]);
     }
 

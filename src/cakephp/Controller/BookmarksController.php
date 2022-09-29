@@ -88,6 +88,12 @@ class BookmarksController extends AppController
             $input->title = $this->request->data['title'];
             $input->url = $this->request->data['url'];
             $input->description = $this->request->data['description'];
+            $input->tagsTitle = array_filter(array_unique(
+                array_map(
+                    'trim',
+                    explode(',', $this->request->data['tag_string'])
+                )
+            ));
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
             $bookmarkModel = $handler($input);
             if ($bookmarkModel) {
