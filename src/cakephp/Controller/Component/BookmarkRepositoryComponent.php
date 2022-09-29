@@ -28,4 +28,10 @@ class BookmarkRepositoryComponent extends Component implements BookmarkRepositor
         }
         return $this->BookmarkTransformer->EntityToModel($bookmarkEntity);
     }
+
+    public function persist(BookmarkModel $bookmark): void
+    {
+        $Bookmarks = TableRegistry::get('Bookmarks');
+        $Bookmarks->save($this->BookmarkTransformer->ModelToEntity($bookmark));
+    }
 }

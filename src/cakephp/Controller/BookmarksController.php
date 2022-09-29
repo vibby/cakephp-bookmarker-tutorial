@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use Application\GetBookmark\GetBookmarkHandler;
 use Application\GetBookmark\GetBookmarkInput;
+use Application\UpdateBookmark\UpdateBookmarkHandler;
+use Application\UpdateBookmark\UpdateBookmarkInput;
 
 /**
  * Bookmarks Controller
@@ -80,17 +82,26 @@ class BookmarksController extends AppController
      */
     public function edit($id = null)
     {
-        $bookmark = $this->Bookmarks->get($id, [
-            'contain' => ['Tags']
-        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->data);
-            $bookmark->user_id = $this->Auth->user('id');
-            if ($this->Bookmarks->save($bookmark)) {
+            $input = new UpdateBookmarkInput();
+            $input->id = $id;
+            $input->title = $this->request->data['title'];
+            $input->url = $this->request->data['url'];
+            $input->description = $this->request->data['description'];
+            $handler = $this->Container->get(UpdateBookmarkHandler::class);
+            $bookmarkModel = $handler($input);
+            if ($bookmarkModel) {
                 $this->Flash->success('The bookmark has been saved.');
                 return $this->redirect(['action' => 'index']);
             }
+            $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
             $this->Flash->error('The bookmark could not be saved. Please, try again.');
+        } else {
+            $input = new GetBookmarkInput();
+            $input->id = $id;
+            $handler = $this->Container->get(GetBookmarkHandler::class);
+            $bookmarkModel = $handler($input);
+            $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
         }
         $tags = $this->Bookmarks->Tags->find('list');
         $this->set(compact('bookmark', 'tags'));
