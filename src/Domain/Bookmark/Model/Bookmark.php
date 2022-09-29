@@ -8,4 +8,6 @@ class Bookmark
     public $title;
     public $url;
     public $description;
+    public $user;
+    public $tags;
 }

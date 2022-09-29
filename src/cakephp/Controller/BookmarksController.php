@@ -1,12 +1,15 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use Application\GetBookmark\GetBookmarkHandler;
+use Application\GetBookmark\GetBookmarkInput;
+use App\Model\Entity\Bookmark;
 
 /**
  * Bookmarks Controller
  *
  * @property \App\Model\Table\BookmarksTable $Bookmarks
+ * @property \App\Controller\Component\ContainerComponent $Container
  */
 class BookmarksController extends AppController
 {
@@ -36,9 +39,16 @@ class BookmarksController extends AppController
      */
     public function view($id = null)
     {
-        $bookmark = $this->Bookmarks->get($id, [
-            'contain' => ['Users', 'Tags']
-        ]);
+        $input = new GetBookmarkInput();
+        $input->id = $id;
+        $handler = $this->Container->get(GetBookmarkHandler::class);
+        $bookmarkModel = $handler($input);
+        $bookmark= new Bookmark();
+        $bookmark->set('title', $bookmarkModel->title);
+        $bookmark->set('url', $bookmarkModel->url);
+        $bookmark->set('description', $bookmarkModel->description);
+        $bookmark->set('id', $bookmarkModel->id);
+
         $this->set('bookmark', $bookmark);
         $this->set('_serialize', ['bookmark']);
     }
