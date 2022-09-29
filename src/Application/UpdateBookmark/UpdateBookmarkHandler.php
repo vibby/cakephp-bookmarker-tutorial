@@ -30,7 +30,8 @@ class UpdateBookmarkHandler
             $bookmark,
             $input->title,
             $input->url,
-            $input->description
+            $input->description,
+            $input->tagsTitle
         );
 
         if ($bookmark) {

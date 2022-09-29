@@ -8,4 +8,5 @@ class UpdateBookmarkInput
     public $title;
     public $url;
     public $description;
+    public $tagsTitle;
 }
