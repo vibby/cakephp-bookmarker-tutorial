@@ -6,31 +6,43 @@ use Domain\Bookmark\Exception\ViolationCollectionException;
 use Domain\Bookmark\Repository\BookmarkRepository;
 use Domain\Bookmark\Model\Bookmark;
 use Domain\Bookmark\Updater\BookmarkUpdater;
+use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
+use Domain\Bookmark\ValueObject\InvalidValueException;
 use Domain\Bookmark\ValueObject\Url;
 
 class UpdateBookmarkHandler
 {
     private $bookmarkRepository;
     private $updater;
-    private $validator;
+    private $inputValidator;
+    private $updateValidator;
 
     public function __construct(
         BookmarkRepository $bookmarkRepository,
         BookmarkUpdater $updater,
-        UpdateBookmarkValidator $updateBookmarkValidator
+        UpdateBookmarkValidator $updateBookmarkValidator,
+        BookmarkUpdaterValidator $bookmarkUpdaterValidator
 	) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->updater = $updater;
-        $this->validator = $updateBookmarkValidator;
+        $this->inputValidator = $updateBookmarkValidator;
+        $this->updateValidator = $bookmarkUpdaterValidator;
     }
 
     public function __invoke(
         UpdateBookmarkInput $input
 	): ?Bookmark {
-        $errors = $this->validator->validate($input);
+        $errors = $this->inputValidator->validate($input);
         $bookmark = $this->bookmarkRepository->findById($input->id);
         if (!$bookmark) {
             $errors[] = 'Bookmark does not exists.';
+        } else {
+            $errors = array_merge($errors, $this->updateValidator->validate($bookmark));
+        }
+        try {
+            $url = Url::fromString($input->url);
+        } catch (InvalidValueException $exception) {
+            $errors[] = $exception->getMessage();
         }
         if (count($errors)) {
             throw new ViolationCollectionException('Errors occured with your request', $errors);
@@ -38,7 +50,7 @@ class UpdateBookmarkHandler
         $bookmark = $this->updater->update(
             $bookmark,
             $input->title,
-            Url::fromString($input->url),
+            $url,
             $input->description,
             $input->tagsTitle
         );

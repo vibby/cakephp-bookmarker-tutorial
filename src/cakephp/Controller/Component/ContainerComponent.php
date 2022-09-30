@@ -8,15 +8,17 @@ use Application\UpdateBookmark\UpdateBookmarkValidator;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Domain\Bookmark\Updater\BookmarkUpdater;
+use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use Exception;
 
 /**
  * @property BookmarkRepositoryComponent $BookmarkRepository
  * @property TagRepositoryComponent $TagRepository
+ * @property CurrentUserProviderComponent $CurrentUserProvider
  */
 class ContainerComponent extends Component
 {
-    public $components = ['BookmarkRepository', 'TagRepository'];
+    public $components = ['BookmarkRepository', 'TagRepository', 'CurrentUserProvider'];
     private $container = [];
 
     public function __construct(ComponentRegistry $registry, array $config = [])
@@ -26,10 +28,12 @@ class ContainerComponent extends Component
         $this->container[GetBookmarkHandler::class] = new GetBookmarkHandler($this->BookmarkRepository); // On crée nos services ici
         $this->container[BookmarkUpdater::class] = new BookmarkUpdater($this->TagRepository);
         $this->container[UpdateBookmarkValidator::class] = new UpdateBookmarkValidator();
+        $this->container[BookmarkUpdaterValidator::class] = new BookmarkUpdaterValidator($this->CurrentUserProvider);
         $this->container[UpdateBookmarkHandler::class] = new UpdateBookmarkHandler(
             $this->BookmarkRepository,
             $this->container[BookmarkUpdater::class],
-            $this->container[UpdateBookmarkValidator::class]
+            $this->container[UpdateBookmarkValidator::class],
+            $this->container[BookmarkUpdaterValidator::class]
         );
     }
 
