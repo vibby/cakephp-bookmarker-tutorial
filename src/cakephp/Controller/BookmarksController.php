@@ -5,6 +5,7 @@ use Application\GetBookmark\GetBookmarkHandler;
 use Application\GetBookmark\GetBookmarkInput;
 use Application\UpdateBookmark\UpdateBookmarkHandler;
 use Application\UpdateBookmark\UpdateBookmarkInput;
+use Domain\Bookmark\Exception\ViolationCollectionException;
 
 /**
  * Bookmarks Controller
@@ -95,20 +96,19 @@ class BookmarksController extends AppController
                 )
             ));
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
-            $bookmarkModel = $handler($input);
-            if ($bookmarkModel) {
+            try {
+                $handler($input);
                 $this->Flash->success('The bookmark has been saved.');
                 return $this->redirect(['action' => 'index']);
+            } catch (ViolationCollectionException $exception) {
+                $this->Flash->error(implode(' ', $exception->violationCollection));
             }
-            $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
-            $this->Flash->error('The bookmark could not be saved. Please, try again.');
-        } else {
-            $input = new GetBookmarkInput();
-            $input->id = $id;
-            $handler = $this->Container->get(GetBookmarkHandler::class);
-            $bookmarkModel = $handler($input);
-            $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
         }
+        $input = new GetBookmarkInput();
+        $input->id = $id;
+        $handler = $this->Container->get(GetBookmarkHandler::class);
+        $bookmarkModel = $handler($input);
+        $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
         $tags = $this->Bookmarks->Tags->find('list');
         $this->set(compact('bookmark', 'tags'));
         $this->set('_serialize', ['bookmark']);

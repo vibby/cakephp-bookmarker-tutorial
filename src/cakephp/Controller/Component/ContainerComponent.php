@@ -4,6 +4,7 @@ namespace App\Controller\Component;
 
 use Application\GetBookmark\GetBookmarkHandler;
 use Application\UpdateBookmark\UpdateBookmarkHandler;
+use Application\UpdateBookmark\UpdateBookmarkValidator;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Domain\Bookmark\Updater\BookmarkUpdater;
@@ -24,7 +25,12 @@ class ContainerComponent extends Component
 
         $this->container[GetBookmarkHandler::class] = new GetBookmarkHandler($this->BookmarkRepository); // On crée nos services ici
         $this->container[BookmarkUpdater::class] = new BookmarkUpdater($this->TagRepository);
-        $this->container[UpdateBookmarkHandler::class] = new UpdateBookmarkHandler($this->BookmarkRepository, $this->container[BookmarkUpdater::class]);
+        $this->container[UpdateBookmarkValidator::class] = new UpdateBookmarkValidator();
+        $this->container[UpdateBookmarkHandler::class] = new UpdateBookmarkHandler(
+            $this->BookmarkRepository,
+            $this->container[BookmarkUpdater::class],
+            $this->container[UpdateBookmarkValidator::class]
+        );
     }
 
     public function get($serviceName)
