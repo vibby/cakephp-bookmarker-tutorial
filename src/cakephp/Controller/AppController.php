@@ -38,6 +38,9 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('Container');
+        $this->loadComponent('BookmarkTransformer');
+        $this->loadComponent('UserTransformer');
+        $this->loadComponent('TagTransformer');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'authenticate' => [

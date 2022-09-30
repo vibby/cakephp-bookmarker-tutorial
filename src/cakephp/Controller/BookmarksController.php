@@ -3,15 +3,13 @@ namespace App\Controller;
 
 use Application\GetBookmark\GetBookmarkHandler;
 use Application\GetBookmark\GetBookmarkInput;
-use App\Model\Entity\Bookmark;
-use App\Model\Entity\Tag;
-use App\Model\Entity\User;
 
 /**
  * Bookmarks Controller
  *
  * @property \App\Model\Table\BookmarksTable $Bookmarks
  * @property \App\Controller\Component\ContainerComponent $Container
+ * @property \App\Controller\Component\BookmarkTransformerComponent $BookmarkTransformer
  */
 class BookmarksController extends AppController
 {
@@ -45,25 +43,7 @@ class BookmarksController extends AppController
         $input->id = $id;
         $handler = $this->Container->get(GetBookmarkHandler::class);
         $bookmarkModel = $handler($input);
-        $bookmark= new Bookmark();
-        $bookmark->set('title', $bookmarkModel->title);
-        $bookmark->set('url', $bookmarkModel->url);
-        $bookmark->set('description', $bookmarkModel->description);
-        $bookmark->set('id', $bookmarkModel->id);
-
-        $user = new User();
-        $user->set('id', $bookmarkModel->user->id);
-        $user->set('email', $bookmarkModel->user->email);
-        $bookmark->set('user', $user);
-
-        $tags = [];
-        foreach ($bookmarkModel->tags as $tagModel) {
-            $tag = new Tag();
-            $tag->set('id', $tagModel->id);
-            $tag->set('title', $tagModel->title);
-            $tags[] = $tag;
-        }
-        $bookmark->set('tags', $tags);
+        $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
 
         $this->set('bookmark', $bookmark);
         $this->set('_serialize', ['bookmark']);
