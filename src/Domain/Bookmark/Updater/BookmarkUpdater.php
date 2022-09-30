@@ -5,6 +5,7 @@ namespace Domain\Bookmark\Updater;
 use Domain\Bookmark\Model\Bookmark;
 use Domain\Bookmark\Model\Tag;
 use Domain\Bookmark\Repository\TagRepository;
+use Domain\Bookmark\ValueObject\Url;
 
 class BookmarkUpdater
 {
@@ -19,7 +20,7 @@ class BookmarkUpdater
     public function update(
         Bookmark $bookmark,
         string $title,
-        string $url,
+        Url $url,
         string $description,
         array $tagsTitle
     ): ?Bookmark {

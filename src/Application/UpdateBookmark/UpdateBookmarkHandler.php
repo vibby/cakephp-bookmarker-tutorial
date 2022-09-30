@@ -5,6 +5,7 @@ namespace Application\UpdateBookmark;
 use Domain\Bookmark\Repository\BookmarkRepository;
 use Domain\Bookmark\Model\Bookmark;
 use Domain\Bookmark\Updater\BookmarkUpdater;
+use Domain\Bookmark\ValueObject\Url;
 
 class UpdateBookmarkHandler
 {
@@ -29,7 +30,7 @@ class UpdateBookmarkHandler
         $bookmark = $this->updater->update(
             $bookmark,
             $input->title,
-            $input->url,
+            Url::fromString($input->url),
             $input->description,
             $input->tagsTitle
         );

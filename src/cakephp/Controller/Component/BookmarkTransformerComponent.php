@@ -5,6 +5,7 @@ namespace App\Controller\Component;
 use App\Model\Entity\Bookmark;
 use Cake\Controller\Component;
 use Domain\Bookmark\Model\Bookmark as BookmarkModel;
+use Domain\Bookmark\ValueObject\Url;
 
 /**
  * @property TagTransformerComponent $TagTransformer
@@ -18,7 +19,7 @@ class BookmarkTransformerComponent extends Component
     {
         $bookmarkEntity= new Bookmark();
         $bookmarkEntity->set('title', $bookmarkModel->title);
-        $bookmarkEntity->set('url', $bookmarkModel->url);
+        $bookmarkEntity->set('url', $bookmarkModel->url->value);
         $bookmarkEntity->set('description', $bookmarkModel->description);
         $bookmarkEntity->set('id', $bookmarkModel->id);
 
@@ -42,7 +43,7 @@ class BookmarkTransformerComponent extends Component
         $bookmarkModel = new BookmarkModel();
         $bookmarkModel->id = $bookmarkEntity->id;
         $bookmarkModel->title = $bookmarkEntity->get('title');
-        $bookmarkModel->url = $bookmarkEntity->get('url');
+        $bookmarkModel->url = Url::fromPersistedString($bookmarkEntity->get('url'));;
         $bookmarkModel->description = $bookmarkEntity->get('description');
 
         if ($bookmarkEntity->get('user')) {
