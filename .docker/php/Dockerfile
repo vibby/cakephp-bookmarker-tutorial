@@ -1,4 +1,4 @@
-FROM php:7.1-fpm-buster
+FROM php:8.1-fpm-buster
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -60,11 +60,7 @@ RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/con
 ADD php.ini /usr/local/etc/php/conf.d/php-custom.ini
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
-COPY --from=composer:1 /usr/bin/composer /usr/local/bin/composer
-
-# install timecop to mock date (see https://github.com/hnw/php-timecop)
-RUN pecl install timecop-beta \
-     && echo "extension=timecop.so" >> /usr/local/etc/php/conf.d/timecop.ini
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 # increase the number of processes
 RUN echo 'pm.max_children = 100' >> /usr/local/etc/php-fpm.d/zz-docker.conf \
