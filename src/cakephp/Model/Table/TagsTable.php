@@ -25,9 +25,9 @@ class TagsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('tags');
-        $this->displayField('title');
-        $this->primaryKey('id');
+        $this->setTable('tags');
+        $this->setDisplayField('title');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsToMany('Bookmarks', [
             'foreignKey' => 'tag_id',

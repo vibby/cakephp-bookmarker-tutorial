@@ -61,7 +61,7 @@ class BookmarksController extends AppController
     {
         $bookmark = $this->Bookmarks->newEntity();
         if ($this->request->is('post')) {
-            $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->data);
+            $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
             $bookmark->user_id = $this->Auth->user('id');
             if ($this->Bookmarks->save($bookmark)) {
                 $this->Flash->success('The bookmark has been saved.');
@@ -86,13 +86,13 @@ class BookmarksController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $input = new UpdateBookmarkInput();
             $input->id = $id;
-            $input->title = $this->request->data['title'];
-            $input->url = $this->request->data['url'];
-            $input->description = $this->request->data['description'];
+            $input->title = $this->request->getData()['title'];
+            $input->url = $this->request->getData()['url'];
+            $input->description = $this->request->getData()['description'];
             $input->tagsTitle = array_filter(array_unique(
                 array_map(
                     'trim',
-                    explode(',', $this->request->data['tag_string'])
+                    explode(',', $this->request->getData()['tag_string'])
                 )
             ));
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
@@ -137,7 +137,7 @@ class BookmarksController extends AppController
     {
         // The 'pass' key is provided by CakePHP and contains all
         // the passed URL path segments in the request.
-        $tags = $this->request->params['pass'];
+        $tags = $this->request->getParam('pass');
 
         // Use the BookmarksTable to find tagged bookmarks.
         $bookmarks = $this->Bookmarks->find('tagged', [
@@ -153,19 +153,19 @@ class BookmarksController extends AppController
 
     public function isAuthorized($user)
     {
-        $action = $this->request->params['action'];
+        $action = $this->request->getParam('action');
 
         // The add and index actions are always allowed.
         if (in_array($action, ['index', 'add', 'tags'])) {
             return true;
         }
         // All other actions require an id.
-        if (empty($this->request->params['pass'][0])) {
+        if (empty($this->request->getParam('pass')[0])) {
             return false;
         }
 
         // Check that the bookmark belongs to the current user.
-        $id = $this->request->params['pass'][0];
+        $id = $this->request->getParam('pass')[0];
         $bookmark = $this->Bookmarks->get($id);
         if ($bookmark->user_id == $user['id']) {
             return true;

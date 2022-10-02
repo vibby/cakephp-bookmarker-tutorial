@@ -21,9 +21,9 @@
     <fieldset>
         <legend><?= __('Edit User') ?></legend>
         <?php
-            echo $this->Form->input('email');
-            echo $this->Form->input('password');
-            echo $this->Form->input('dob', ['empty' => true, 'default' => '']);
+            echo $this->Form->control('email');
+            echo $this->Form->control('password');
+            echo $this->Form->control('dob', ['empty' => true, 'default' => '']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

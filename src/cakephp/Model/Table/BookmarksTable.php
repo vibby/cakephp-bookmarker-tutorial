@@ -26,9 +26,9 @@ class BookmarksTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('bookmarks');
-        $this->displayField('title');
-        $this->primaryKey('id');
+        $this->setTable('bookmarks');
+        $this->setDisplayField('title');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
