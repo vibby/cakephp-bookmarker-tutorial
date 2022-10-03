@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\Collection\Collection;
@@ -9,7 +10,6 @@ use Cake\ORM\Entity;
  */
 class Bookmark extends Entity
 {
-
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -30,8 +30,9 @@ class Bookmark extends Entity
         }
         $tags = new Collection($this->tags);
         $str = $tags->reduce(function ($string, $tag) {
-            return $string . $tag->title . ', ';
+            return $string.$tag->title.', ';
         }, '');
+
         return trim($str, ', ');
     }
 }

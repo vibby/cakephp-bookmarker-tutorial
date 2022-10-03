@@ -1,20 +1,16 @@
 <?php
+
 namespace App\Controller;
 
-use App\Controller\AppController;
-
 /**
- * Tags Controller
+ * Tags Controller.
  *
  * @property \App\Model\Table\TagsTable $Tags
  */
 class TagsController extends AppController
 {
-
     /**
-     * Index method
-     *
-     * @return void
+     * Index method.
      */
     public function index()
     {
@@ -23,25 +19,23 @@ class TagsController extends AppController
     }
 
     /**
-     * View method
+     * View method.
      *
-     * @param string|null $id Tag id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id tag id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function view($id = null)
     {
         $tag = $this->Tags->get($id, [
-            'contain' => ['Bookmarks']
+            'contain' => ['Bookmarks'],
         ]);
         $this->set('tag', $tag);
         $this->set('_serialize', ['tag']);
     }
 
     /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
+     * Add method.
      */
     public function add()
     {
@@ -50,10 +44,10 @@ class TagsController extends AppController
             $tag = $this->Tags->patchEntity($tag, $this->request->data);
             if ($this->Tags->save($tag)) {
                 $this->Flash->success(__('The tag has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The tag could not be saved. Please, try again.'));
             }
+            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
         $bookmarks = $this->Tags->Bookmarks->find('list', ['limit' => 200]);
         $this->set(compact('tag', 'bookmarks'));
@@ -61,25 +55,25 @@ class TagsController extends AppController
     }
 
     /**
-     * Edit method
+     * Edit method.
      *
-     * @param string|null $id Tag id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id tag id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function edit($id = null)
     {
         $tag = $this->Tags->get($id, [
-            'contain' => ['Bookmarks']
+            'contain' => ['Bookmarks'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->data);
             if ($this->Tags->save($tag)) {
                 $this->Flash->success(__('The tag has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The tag could not be saved. Please, try again.'));
             }
+            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
         $bookmarks = $this->Tags->Bookmarks->find('list', ['limit' => 200]);
         $this->set(compact('tag', 'bookmarks'));
@@ -87,11 +81,11 @@ class TagsController extends AppController
     }
 
     /**
-     * Delete method
+     * Delete method.
      *
-     * @param string|null $id Tag id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id tag id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function delete($id = null)
     {
@@ -102,6 +96,7 @@ class TagsController extends AppController
         } else {
             $this->Flash->error(__('The tag could not be deleted. Please, try again.'));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 }

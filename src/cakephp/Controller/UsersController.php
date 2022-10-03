@@ -1,10 +1,9 @@
 <?php
+
 namespace App\Controller;
 
-use App\Controller\AppController;
-
 /**
- * Users Controller
+ * Users Controller.
  *
  * @property \App\Model\Table\UsersTable $Users
  */
@@ -16,9 +15,7 @@ class UsersController extends AppController
     }
 
     /**
-     * Index method
-     *
-     * @return void
+     * Index method.
      */
     public function index()
     {
@@ -27,25 +24,23 @@ class UsersController extends AppController
     }
 
     /**
-     * View method
+     * View method.
      *
-     * @param string|null $id User id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id user id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Apps', 'Bookmarks', 'Profiles']
+            'contain' => ['Apps', 'Bookmarks', 'Profiles'],
         ]);
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
 
     /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
+     * Add method.
      */
     public function add()
     {
@@ -54,46 +49,46 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
 
     /**
-     * Edit method
+     * Edit method.
      *
-     * @param string|null $id User id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id user id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
 
     /**
-     * Delete method
+     * Delete method.
      *
-     * @param string|null $id User id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id user id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function delete($id = null)
     {
@@ -104,6 +99,7 @@ class UsersController extends AppController
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 
@@ -113,6 +109,7 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error('Your username or password is incorrect.');
@@ -122,6 +119,7 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Flash->success('You are now logged out.');
+
         return $this->redirect($this->Auth->logout());
     }
 }

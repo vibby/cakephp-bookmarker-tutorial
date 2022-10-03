@@ -1,25 +1,21 @@
 <?php
+
 namespace App\Model\Table;
 
-use App\Model\Entity\Tag;
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Tags Model
+ * Tags Model.
  *
  * @property \Cake\ORM\Association\BelongsToMany $Bookmarks
  */
 class TagsTable extends Table
 {
-
     /**
-     * Initialize method
+     * Initialize method.
      *
-     * @param array $config The configuration for the Table.
-     * @return void
+     * @param array $config the configuration for the Table
      */
     public function initialize(array $config): void
     {
@@ -32,25 +28,26 @@ class TagsTable extends Table
         $this->belongsToMany('Bookmarks', [
             'foreignKey' => 'tag_id',
             'targetForeignKey' => 'bookmark_id',
-            'joinTable' => 'bookmarks_tags'
+            'joinTable' => 'bookmarks_tags',
         ]);
     }
 
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * @param \Cake\Validation\Validator $validator validator instance
      */
-    public function validationDefault(Validator $validator): \Cake\Validation\Validator
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create');
+            ->allowEmpty('id', 'create')
+        ;
 
         $validator
             ->allowEmpty('title')
-            ->add('title', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('title', 'unique', ['rule' => 'validateUnique', 'provider' => 'table'])
+        ;
 
         return $validator;
     }

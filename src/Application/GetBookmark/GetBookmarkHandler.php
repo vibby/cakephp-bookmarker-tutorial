@@ -2,8 +2,8 @@
 
 namespace Application\GetBookmark;
 
-use \Domain\Bookmark\Repository\BookmarkRepository;
-use \Domain\Bookmark\Model\Bookmark;
+use Domain\Bookmark\Model\Bookmark;
+use Domain\Bookmark\Repository\BookmarkRepository;
 
 class GetBookmarkHandler
 {
@@ -11,13 +11,13 @@ class GetBookmarkHandler
 
     public function __construct(
         BookmarkRepository $bookmarkRepository
-	) {
+    ) {
         $this->bookmarkRepository = $bookmarkRepository;
     }
 
     public function __invoke(
         GetBookmarkInput $input
-	): ?Bookmark {
+    ): ?Bookmark {
         return $this->bookmarkRepository->findById($input->id);
     }
 }

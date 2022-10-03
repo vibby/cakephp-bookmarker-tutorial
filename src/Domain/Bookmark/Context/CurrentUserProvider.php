@@ -2,7 +2,7 @@
 
 namespace Domain\Bookmark\Context;
 
-use \Domain\Bookmark\Model\User;
+use Domain\Bookmark\Model\User;
 
 interface CurrentUserProvider
 {

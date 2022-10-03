@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Application\GetBookmark\GetBookmarkHandler;
@@ -8,37 +9,34 @@ use Application\UpdateBookmark\UpdateBookmarkInput;
 use Domain\Bookmark\Exception\ViolationCollectionException;
 
 /**
- * Bookmarks Controller
+ * Bookmarks Controller.
  *
- * @property \App\Model\Table\BookmarksTable $Bookmarks
- * @property \App\Controller\Component\ContainerComponent $Container
+ * @property \App\Model\Table\BookmarksTable                        $Bookmarks
+ * @property \App\Controller\Component\ContainerComponent           $Container
  * @property \App\Controller\Component\BookmarkTransformerComponent $BookmarkTransformer
  */
 class BookmarksController extends AppController
 {
-
     /**
-     * Index method
-     *
-     * @return void
+     * Index method.
      */
     public function index()
     {
         $this->paginate = [
             'conditions' => [
                 'Bookmarks.user_id' => $this->Auth->user('id'),
-            ]
+            ],
         ];
         $this->set('bookmarks', $this->paginate($this->Bookmarks));
         $this->set('_serialize', ['bookmarks']);
     }
 
     /**
-     * View method
+     * View method.
      *
-     * @param string|null $id Bookmark id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id bookmark id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function view($id = null)
     {
@@ -53,9 +51,7 @@ class BookmarksController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
+     * Add method.
      */
     public function add()
     {
@@ -65,6 +61,7 @@ class BookmarksController extends AppController
             $bookmark->user_id = $this->Auth->user('id');
             if ($this->Bookmarks->save($bookmark)) {
                 $this->Flash->success('The bookmark has been saved.');
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error('The bookmark could not be saved. Please, try again.');
@@ -75,11 +72,11 @@ class BookmarksController extends AppController
     }
 
     /**
-     * Edit method
+     * Edit method.
      *
-     * @param string|null $id Bookmark id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id bookmark id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function edit($id = null)
     {
@@ -96,9 +93,11 @@ class BookmarksController extends AppController
                 )
             ));
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
+
             try {
                 $handler($input);
                 $this->Flash->success('The bookmark has been saved.');
+
                 return $this->redirect(['action' => 'index']);
             } catch (ViolationCollectionException $exception) {
                 $this->Flash->error(implode(' ', $exception->violationCollection));
@@ -115,11 +114,11 @@ class BookmarksController extends AppController
     }
 
     /**
-     * Delete method
+     * Delete method.
      *
-     * @param string|null $id Bookmark id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @param null|string $id bookmark id
+     *
+     * @throws \Cake\Network\Exception\NotFoundException when record not found
      */
     public function delete($id = null)
     {
@@ -130,6 +129,7 @@ class BookmarksController extends AppController
         } else {
             $this->Flash->error(__('The bookmark could not be deleted. Please, try again.'));
         }
+
         return $this->redirect(['action' => 'index']);
     }
 
@@ -141,13 +141,13 @@ class BookmarksController extends AppController
 
         // Use the BookmarksTable to find tagged bookmarks.
         $bookmarks = $this->Bookmarks->find('tagged', [
-            'tags' => $tags
+            'tags' => $tags,
         ]);
 
         // Pass variables into the view template context.
         $this->set([
             'bookmarks' => $bookmarks,
-            'tags' => $tags
+            'tags' => $tags,
         ]);
     }
 
@@ -170,6 +170,7 @@ class BookmarksController extends AppController
         if ($bookmark->user_id == $user['id']) {
             return true;
         }
+
         return parent::isAuthorized($user);
     }
 }

@@ -1,19 +1,23 @@
 <?php
+
 declare(strict_types=1);
 
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org).
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
+ *
+ * @see      https://cakephp.org CakePHP(tm) Project
  * @since     3.0.0
+ *
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Console;
 
 if (!defined('STDIN')) {
@@ -32,7 +36,7 @@ use Exception;
 class Installer
 {
     /**
-     * An array of directories to be made writable
+     * An array of directories to be made writable.
      */
     public const WRITABLE_DIRS = [
         'logs',
@@ -48,9 +52,9 @@ class Installer
     /**
      * Does some routine installation tasks so people don't have to.
      *
-     * @param \Composer\Script\Event $event The composer event object.
-     * @throws \Exception Exception raised by validator.
-     * @return void
+     * @param \Composer\Script\Event $event the composer event object
+     *
+     * @throws \Exception exception raised by validator
      */
     public static function postInstall(Event $event)
     {
@@ -72,14 +76,13 @@ class Installer
     /**
      * Create config/app_local.php file if it does not exist.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @return void
+     * @param string                   $dir the application's root directory
+     * @param \Composer\IO\IOInterface $io  IO interface to write to console
      */
     public static function createAppLocalConfig($dir, $io)
     {
-        $appLocalConfig = $dir . '/config/app_local.php';
-        $appLocalConfigTemplate = $dir . '/config/app_local.example.php';
+        $appLocalConfig = $dir.'/config/app_local.php';
+        $appLocalConfigTemplate = $dir.'/config/app_local.example.php';
         if (!file_exists($appLocalConfig)) {
             copy($appLocalConfigTemplate, $appLocalConfig);
             $io->write('Created `config/app_local.php` file');
@@ -89,17 +92,16 @@ class Installer
     /**
      * Create the `logs` and `tmp` directories.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @return void
+     * @param string                   $dir the application's root directory
+     * @param \Composer\IO\IOInterface $io  IO interface to write to console
      */
     public static function createWritableDirectories($dir, $io)
     {
         foreach (static::WRITABLE_DIRS as $path) {
-            $path = $dir . '/' . $path;
+            $path = $dir.'/'.$path;
             if (!file_exists($path)) {
                 mkdir($path);
-                $io->write('Created `' . $path . '` directory');
+                $io->write('Created `'.$path.'` directory');
             }
         }
     }
@@ -109,9 +111,8 @@ class Installer
      *
      * This is not the most secure default, but it gets people up and running quickly.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @return void
+     * @param string                   $dir the application's root directory
+     * @param \Composer\IO\IOInterface $io  IO interface to write to console
      */
     public static function setFolderPermissions($dir, $io)
     {
@@ -121,6 +122,7 @@ class Installer
                 if (in_array($arg, ['Y', 'y', 'N', 'n'])) {
                     return $arg;
                 }
+
                 throw new Exception('This is not a valid answer. Please choose Y or n.');
             };
             $setFolderPermissions = $io->askAndValidate(
@@ -145,16 +147,16 @@ class Installer
 
             $res = chmod($path, $worldWritable);
             if ($res) {
-                $io->write('Permissions set on ' . $path);
+                $io->write('Permissions set on '.$path);
             } else {
-                $io->write('Failed to set permissions on ' . $path);
+                $io->write('Failed to set permissions on '.$path);
             }
         };
 
         $walker = function ($dir) use (&$walker, $changePerms) {
             $files = array_diff(scandir($dir), ['.', '..']);
             foreach ($files as $file) {
-                $path = $dir . '/' . $file;
+                $path = $dir.'/'.$file;
 
                 if (!is_dir($path)) {
                     continue;
@@ -165,17 +167,16 @@ class Installer
             }
         };
 
-        $walker($dir . '/tmp');
-        $changePerms($dir . '/tmp');
-        $changePerms($dir . '/logs');
+        $walker($dir.'/tmp');
+        $changePerms($dir.'/tmp');
+        $changePerms($dir.'/logs');
     }
 
     /**
      * Set the security.salt value in the application's config file.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @return void
+     * @param string                   $dir the application's root directory
+     * @param \Composer\IO\IOInterface $io  IO interface to write to console
      */
     public static function setSecuritySalt($dir, $io)
     {
@@ -184,22 +185,21 @@ class Installer
     }
 
     /**
-     * Set the security.salt value in a given file
+     * Set the security.salt value in a given file.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @param string $newKey key to set in the file
-     * @param string $file A path to a file relative to the application's root
-     * @return void
+     * @param string                   $dir    the application's root directory
+     * @param \Composer\IO\IOInterface $io     IO interface to write to console
+     * @param string                   $newKey key to set in the file
+     * @param string                   $file   A path to a file relative to the application's root
      */
     public static function setSecuritySaltInFile($dir, $io, $newKey, $file)
     {
-        $config = $dir . '/config/' . $file;
+        $config = $dir.'/config/'.$file;
         $content = file_get_contents($config);
 
         $content = str_replace('__SALT__', $newKey, $content, $count);
 
-        if ($count == 0) {
+        if (0 == $count) {
             $io->write('No Security.salt placeholder to replace.');
 
             return;
@@ -207,7 +207,7 @@ class Installer
 
         $result = file_put_contents($config, $content);
         if ($result) {
-            $io->write('Updated Security.salt value in config/' . $file);
+            $io->write('Updated Security.salt value in config/'.$file);
 
             return;
         }
@@ -215,21 +215,20 @@ class Installer
     }
 
     /**
-     * Set the APP_NAME value in a given file
+     * Set the APP_NAME value in a given file.
      *
-     * @param string $dir The application's root directory.
-     * @param \Composer\IO\IOInterface $io IO interface to write to console.
-     * @param string $appName app name to set in the file
-     * @param string $file A path to a file relative to the application's root
-     * @return void
+     * @param string                   $dir     the application's root directory
+     * @param \Composer\IO\IOInterface $io      IO interface to write to console
+     * @param string                   $appName app name to set in the file
+     * @param string                   $file    A path to a file relative to the application's root
      */
     public static function setAppNameInFile($dir, $io, $appName, $file)
     {
-        $config = $dir . '/config/' . $file;
+        $config = $dir.'/config/'.$file;
         $content = file_get_contents($config);
         $content = str_replace('__APP_NAME__', $appName, $content, $count);
 
-        if ($count == 0) {
+        if (0 == $count) {
             $io->write('No __APP_NAME__ placeholder to replace.');
 
             return;
@@ -237,7 +236,7 @@ class Installer
 
         $result = file_put_contents($config, $content);
         if ($result) {
-            $io->write('Updated __APP_NAME__ value in config/' . $file);
+            $io->write('Updated __APP_NAME__ value in config/'.$file);
 
             return;
         }

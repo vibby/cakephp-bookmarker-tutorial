@@ -1,6 +1,6 @@
 <?php
 
-    namespace Application\UpdateBookmark;
+namespace Application\UpdateBookmark;
 
     class UpdateBookmarkValidator
     {

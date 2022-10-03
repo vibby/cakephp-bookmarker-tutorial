@@ -2,7 +2,7 @@
 
 namespace Domain\Bookmark\Repository;
 
-use \Domain\Bookmark\Model\Bookmark;
+use Domain\Bookmark\Model\Bookmark;
 
 interface BookmarkRepository
 {

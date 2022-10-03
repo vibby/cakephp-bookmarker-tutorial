@@ -12,8 +12,8 @@ use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use Exception;
 
 /**
- * @property BookmarkRepositoryComponent $BookmarkRepository
- * @property TagRepositoryComponent $TagRepository
+ * @property BookmarkRepositoryComponent  $BookmarkRepository
+ * @property TagRepositoryComponent       $TagRepository
  * @property CurrentUserProviderComponent $CurrentUserProvider
  */
 class ContainerComponent extends Component

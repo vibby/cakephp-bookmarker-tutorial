@@ -3,8 +3,8 @@
 namespace Application\UpdateBookmark;
 
 use Domain\Bookmark\Exception\ViolationCollectionException;
-use Domain\Bookmark\Repository\BookmarkRepository;
 use Domain\Bookmark\Model\Bookmark;
+use Domain\Bookmark\Repository\BookmarkRepository;
 use Domain\Bookmark\Updater\BookmarkUpdater;
 use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use Domain\Bookmark\ValueObject\InvalidValueException;
@@ -22,7 +22,7 @@ class UpdateBookmarkHandler
         BookmarkUpdater $updater,
         UpdateBookmarkValidator $updateBookmarkValidator,
         BookmarkUpdaterValidator $bookmarkUpdaterValidator
-	) {
+    ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->updater = $updater;
         $this->inputValidator = $updateBookmarkValidator;
@@ -31,7 +31,7 @@ class UpdateBookmarkHandler
 
     public function __invoke(
         UpdateBookmarkInput $input
-	): ?Bookmark {
+    ): ?Bookmark {
         $errors = $this->inputValidator->validate($input);
         $bookmark = $this->bookmarkRepository->findById($input->id);
         if (!$bookmark) {
@@ -39,6 +39,7 @@ class UpdateBookmarkHandler
         } else {
             $errors = array_merge($errors, $this->updateValidator->validate($bookmark));
         }
+
         try {
             $url = Url::fromString($input->url);
         } catch (InvalidValueException $exception) {

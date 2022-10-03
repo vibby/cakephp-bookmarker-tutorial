@@ -19,9 +19,10 @@ class BookmarkUpdaterValidator
     {
         $violations = [];
         $currentUser = $this->currentUserProvider->getCurrentUser();
-        if ($currentUser === null || $currentUser->id !== $bookmark->user->id) {
+        if (null === $currentUser || $currentUser->id !== $bookmark->user->id) {
             $violations[] = 'You cannot modify that bookmark since you are not the owner';
         }
+
         return $violations;
     }
 }

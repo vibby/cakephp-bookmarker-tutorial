@@ -8,7 +8,7 @@ use Domain\Bookmark\Model\Bookmark as BookmarkModel;
 use Domain\Bookmark\ValueObject\Url;
 
 /**
- * @property TagTransformerComponent $TagTransformer
+ * @property TagTransformerComponent  $TagTransformer
  * @property UserTransformerComponent $UserTransformer
  */
 class BookmarkTransformerComponent extends Component
@@ -17,7 +17,7 @@ class BookmarkTransformerComponent extends Component
 
     public function modelToEntity(BookmarkModel $bookmarkModel): Bookmark
     {
-        $bookmarkEntity= new Bookmark();
+        $bookmarkEntity = new Bookmark();
         $bookmarkEntity->set('title', $bookmarkModel->title);
         $bookmarkEntity->set('url', $bookmarkModel->url->value);
         $bookmarkEntity->set('description', $bookmarkModel->description);
@@ -43,7 +43,7 @@ class BookmarkTransformerComponent extends Component
         $bookmarkModel = new BookmarkModel();
         $bookmarkModel->id = $bookmarkEntity->id;
         $bookmarkModel->title = $bookmarkEntity->get('title');
-        $bookmarkModel->url = Url::fromPersistedString($bookmarkEntity->get('url'));;
+        $bookmarkModel->url = Url::fromPersistedString($bookmarkEntity->get('url'));
         $bookmarkModel->description = $bookmarkEntity->get('description');
 
         if ($bookmarkEntity->get('user')) {

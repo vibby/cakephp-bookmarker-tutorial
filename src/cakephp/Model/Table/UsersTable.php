@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Model\Table;
 
-use App\Model\Entity\User;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Users Model
+ * Users Model.
  *
  * @property \Cake\ORM\Association\HasMany $Apps
  * @property \Cake\ORM\Association\HasMany $Bookmarks
@@ -16,12 +15,10 @@ use Cake\Validation\Validator;
  */
 class UsersTable extends Table
 {
-
     /**
-     * Initialize method
+     * Initialize method.
      *
-     * @param array $config The configuration for the Table.
-     * @return void
+     * @param array $config the configuration for the Table
      */
     public function initialize(array $config): void
     {
@@ -32,40 +29,43 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->hasMany('Apps', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Bookmarks', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Profiles', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
     }
 
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * @param \Cake\Validation\Validator $validator validator instance
      */
-    public function validationDefault(Validator $validator): \Cake\Validation\Validator
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create');
+            ->allowEmpty('id', 'create')
+        ;
 
         $validator
             ->add('email', 'valid', ['rule' => 'email'])
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->notEmpty('email')
+        ;
 
         $validator
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->notEmpty('password')
+        ;
 
         $validator
             ->add('dob', 'valid', ['rule' => 'date'])
-            ->allowEmpty('dob');
+            ->allowEmpty('dob')
+        ;
 
         return $validator;
     }
@@ -74,12 +74,12 @@ class UsersTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * @param \Cake\ORM\RulesChecker $rules the rules object to be modified
      */
-    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']));
+
         return $rules;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controller\Component;
 
-use App\Model\Entity\User;
 use App\Model\Entity\User as UserEntity;
 use Cake\Controller\Component;
 use Domain\Bookmark\Model\User as UserModel;

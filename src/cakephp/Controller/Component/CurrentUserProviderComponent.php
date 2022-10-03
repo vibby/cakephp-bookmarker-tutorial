@@ -10,7 +10,7 @@ use Domain\Bookmark\Model\User as UserModel;
 
 /**
  * @property UserTransformerComponent $UserTransformer
- * @property AuthComponent $Auth
+ * @property AuthComponent            $Auth
  */
 class CurrentUserProviderComponent extends Component implements CurrentUserProvider
 {

@@ -20,6 +20,9 @@ ehthumbs.db
 Thumbs.db
 .directory
 
+# php-cs-fixer
+.php-cs-fixer.cache
+
 # Tool specific files #
 #######################
 # PHPUnit

@@ -13,7 +13,7 @@ class BookmarkUpdater
 
     public function __construct(
         TagRepository $tagRepository
-    ){
+    ) {
         $this->tagRepository = $tagRepository;
     }
 
