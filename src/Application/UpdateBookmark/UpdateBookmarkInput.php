@@ -4,9 +4,13 @@ namespace Application\UpdateBookmark;
 
 class UpdateBookmarkInput
 {
-    public $id;
-    public $title;
-    public $url;
-    public $description;
-    public $tagsTitle;
+    public int $id;
+    public string $title;
+    public string $url;
+    public string $description;
+
+    /**
+     * @var array<string>
+     */
+    public array $tagsTitle;
 }

@@ -4,14 +4,14 @@ namespace Domain\Bookmark\ValueObject;
 
 class Url
 {
-    public $value;
+    public string $value;
 
     private function __construct(string $url)
     {
         $this->value = $url;
     }
 
-    public static function fromString($url)
+    public static function fromString(string $url): self
     {
         $validation = (bool) preg_match(
             "#(?i)\\b((?:https?://|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’]))#",
@@ -24,7 +24,7 @@ class Url
         return new self($url);
     }
 
-    public static function fromPersistedString($url)
+    public static function fromPersistedString(string $url): self
     {
         return new self($url);
     }

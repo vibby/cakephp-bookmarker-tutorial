@@ -4,5 +4,5 @@ namespace Application\GetBookmark;
 
 class GetBookmarkInput
 {
-    public $id;
+    public int $id;
 }

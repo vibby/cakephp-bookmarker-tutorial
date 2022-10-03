@@ -4,7 +4,9 @@ namespace Domain\Bookmark\Model;
 
 class Tag
 {
-    public $id;
-    public $title;
-    public $bookmarks;
+    public int $id;
+    public string $title;
+
+    /** @var array<Bookmark> */
+    public array $bookmarks;
 }

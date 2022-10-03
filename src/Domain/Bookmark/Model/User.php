@@ -4,9 +4,11 @@ namespace Domain\Bookmark\Model;
 
 class User
 {
-    public $id;
-    public $email;
-    public $password;
-    public $dateOfBirth;
-    public $bookmarks;
+    public int $id;
+    public string $email;
+    public string $password;
+    public \DateTime $dateOfBirth;
+
+    /** @var array<Bookmark> */
+    public array $bookmarks;
 }

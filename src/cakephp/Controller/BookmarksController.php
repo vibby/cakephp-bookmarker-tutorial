@@ -171,6 +171,6 @@ class BookmarksController extends AppController
             return true;
         }
 
-        return parent::isAuthorized($user);
+        return false;
     }
 }

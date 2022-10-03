@@ -17,7 +17,7 @@ class BookmarkRepositoryComponent extends Component implements BookmarkRepositor
 {
     public $components = ['BookmarkTransformer'];
 
-    public function findById(string $id): ?BookmarkModel
+    public function findById(int $id): ?BookmarkModel
     {
         $Bookmarks = TableRegistry::get('Bookmarks');
         $bookmarkEntity = $Bookmarks->get($id, [

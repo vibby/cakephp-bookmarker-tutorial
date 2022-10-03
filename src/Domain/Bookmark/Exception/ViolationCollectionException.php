@@ -7,9 +7,13 @@ use Throwable;
 
 class ViolationCollectionException extends Exception
 {
-    public $violationCollection;
+    /** @var array<string> */
+    public array $violationCollection;
 
-    public function __construct($message, array $violationCollection, $code = 0, Throwable $previous = null)
+    /**
+     * @param array<string> $violationCollection
+     */
+    public function __construct(string $message, array $violationCollection, int $code = 0, Throwable $previous = null)
     {
         $this->violationCollection = $violationCollection;
         parent::__construct($message, $code, $previous);

@@ -7,7 +7,7 @@ use Domain\Bookmark\Model\Bookmark;
 
 class BookmarkUpdaterValidator
 {
-    private $currentUserProvider;
+    private CurrentUserProvider $currentUserProvider;
 
     public function __construct(
         CurrentUserProvider $currentUserProvider
@@ -15,6 +15,9 @@ class BookmarkUpdaterValidator
         $this->currentUserProvider = $currentUserProvider;
     }
 
+    /**
+     * @return array<string>
+     */
     public function validate(Bookmark $bookmark): array
     {
         $violations = [];

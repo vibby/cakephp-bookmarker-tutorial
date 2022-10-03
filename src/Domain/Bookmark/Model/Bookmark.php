@@ -2,12 +2,16 @@
 
 namespace Domain\Bookmark\Model;
 
+use Domain\Bookmark\ValueObject\Url;
+
 class Bookmark
 {
-    public $id;
-    public $title;
-    public $url;
-    public $description;
-    public $user;
-    public $tags;
+    public int $id;
+    public string $title;
+    public Url $url;
+    public string $description;
+    public User $user;
+
+    /** @var array<Tag> */
+    public array $tags;
 }

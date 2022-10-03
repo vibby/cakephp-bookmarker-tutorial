@@ -12,10 +12,10 @@ use Domain\Bookmark\ValueObject\Url;
 
 class UpdateBookmarkHandler
 {
-    private $bookmarkRepository;
-    private $updater;
-    private $inputValidator;
-    private $updateValidator;
+    private BookmarkRepository $bookmarkRepository;
+    private BookmarkUpdater $updater;
+    private UpdateBookmarkValidator $inputValidator;
+    private BookmarkUpdaterValidator $updateValidator;
 
     public function __construct(
         BookmarkRepository $bookmarkRepository,
@@ -43,10 +43,17 @@ class UpdateBookmarkHandler
         try {
             $url = Url::fromString($input->url);
         } catch (InvalidValueException $exception) {
+            $url = null;
             $errors[] = $exception->getMessage();
         }
         if (count($errors)) {
             throw new ViolationCollectionException('Errors occured with your request', $errors);
+        }
+        if (!$bookmark instanceof Bookmark) {
+            throw new \LogicException('Bookmark is undefined');
+        }
+        if (!$url instanceof Url) {
+            throw new \LogicException('Url is undefined');
         }
         $bookmark = $this->updater->update(
             $bookmark,
@@ -56,7 +63,7 @@ class UpdateBookmarkHandler
             $input->tagsTitle
         );
 
-        if ($bookmark) {
+        if ($bookmark instanceof Bookmark) {
             $this->bookmarkRepository->persist($bookmark);
         }
 

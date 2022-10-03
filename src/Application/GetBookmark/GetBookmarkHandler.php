@@ -7,7 +7,7 @@ use Domain\Bookmark\Repository\BookmarkRepository;
 
 class GetBookmarkHandler
 {
-    private $bookmarkRepository;
+    private BookmarkRepository $bookmarkRepository;
 
     public function __construct(
         BookmarkRepository $bookmarkRepository
