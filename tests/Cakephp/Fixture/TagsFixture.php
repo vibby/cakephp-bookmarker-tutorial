@@ -1,17 +1,16 @@
 <?php
+
 namespace App\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * TagsFixture
- *
+ * TagsFixture.
  */
 class TagsFixture extends TestFixture
 {
-
     /**
-     * Fields
+     * Fields.
      *
      * @var array
      */
@@ -27,13 +26,13 @@ class TagsFixture extends TestFixture
         ],
         '_options' => [
             'engine' => 'InnoDB',
-            'collation' => 'utf8_general_ci'
+            'collation' => 'utf8_general_ci',
         ],
     ];
     // @codingStandardsIgnoreEnd
 
     /**
-     * Records
+     * Records.
      *
      * @var array
      */
@@ -42,7 +41,7 @@ class TagsFixture extends TestFixture
             'id' => 1,
             'title' => 'Lorem ipsum dolor sit amet',
             'created' => '2015-08-03 21:22:24',
-            'updated' => '2015-08-03 21:22:24'
+            'updated' => '2015-08-03 21:22:24',
         ],
     ];
 }

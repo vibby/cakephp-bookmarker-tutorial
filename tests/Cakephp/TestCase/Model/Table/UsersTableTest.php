@@ -1,58 +1,53 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BookmarksTable;
+namespace App\Test\Cakephp\TestCase\Model\Table;
+
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BookmarksTable Test Case
+ * App\Model\Table\UsersTable Test Case.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
-class BookmarksTableTest extends TestCase
+class UsersTableTest extends TestCase
 {
-
     /**
-     * Fixtures
+     * Fixtures.
      *
      * @var array
      */
     public $fixtures = [
-        'app.bookmarks',
         'app.users',
         'app.apps',
+        'app.bookmarks',
         'app.profiles',
-        'app.tags',
-        'app.bookmarks_tags'
     ];
 
     /**
-     * setUp method
-     *
-     * @return void
+     * setUp method.
      */
     public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::exists('Bookmarks') ? [] : ['className' => 'App\Model\Table\BookmarksTable'];
-        $this->Bookmarks = TableRegistry::get('Bookmarks', $config);
+        $config = TableRegistry::exists('Users') ? [] : ['className' => 'App\Model\Table\UsersTable'];
+        $this->Users = TableRegistry::get('Users', $config);
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
+     * tearDown method.
      */
     public function tearDown(): void
     {
-        unset($this->Bookmarks);
+        unset($this->Users);
 
         parent::tearDown();
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
+     * Test initialize method.
      */
     public function testInitialize()
     {
@@ -60,9 +55,7 @@ class BookmarksTableTest extends TestCase
     }
 
     /**
-     * Test validationDefault method
-     *
-     * @return void
+     * Test validationDefault method.
      */
     public function testValidationDefault()
     {
@@ -70,9 +63,7 @@ class BookmarksTableTest extends TestCase
     }
 
     /**
-     * Test buildRules method
-     *
-     * @return void
+     * Test buildRules method.
      */
     public function testBuildRules()
     {

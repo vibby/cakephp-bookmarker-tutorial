@@ -1,17 +1,16 @@
 <?php
+
 namespace App\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * UsersFixture
- *
+ * UsersFixture.
  */
 class UsersFixture extends TestFixture
 {
-
     /**
-     * Fields
+     * Fields.
      *
      * @var array
      */
@@ -28,13 +27,13 @@ class UsersFixture extends TestFixture
         ],
         '_options' => [
             'engine' => 'InnoDB',
-            'collation' => 'utf8_general_ci'
+            'collation' => 'utf8_general_ci',
         ],
     ];
     // @codingStandardsIgnoreEnd
 
     /**
-     * Records
+     * Records.
      *
      * @var array
      */
@@ -45,7 +44,7 @@ class UsersFixture extends TestFixture
             'password' => 'Lorem ipsum dolor sit amet',
             'dob' => '2015-08-03',
             'created' => '2015-08-03 21:22:15',
-            'updated' => '2015-08-03 21:22:15'
+            'updated' => '2015-08-03 21:22:15',
         ],
     ];
 }

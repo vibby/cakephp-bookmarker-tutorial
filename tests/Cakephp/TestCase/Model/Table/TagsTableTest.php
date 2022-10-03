@@ -1,18 +1,21 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\TagsTable;
+namespace App\Test\Cakephp\TestCase\Model\Table;
+
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\TagsTable Test Case
+ * App\Model\Table\TagsTable Test Case.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
 class TagsTableTest extends TestCase
 {
-
     /**
-     * Fixtures
+     * Fixtures.
      *
      * @var array
      */
@@ -22,13 +25,11 @@ class TagsTableTest extends TestCase
         'app.users',
         'app.apps',
         'app.profiles',
-        'app.bookmarks_tags'
+        'app.bookmarks_tags',
     ];
 
     /**
-     * setUp method
-     *
-     * @return void
+     * setUp method.
      */
     public function setUp(): void
     {
@@ -38,9 +39,7 @@ class TagsTableTest extends TestCase
     }
 
     /**
-     * tearDown method
-     *
-     * @return void
+     * tearDown method.
      */
     public function tearDown(): void
     {
@@ -50,9 +49,7 @@ class TagsTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
-     *
-     * @return void
+     * Test initialize method.
      */
     public function testInitialize()
     {
@@ -60,9 +57,7 @@ class TagsTableTest extends TestCase
     }
 
     /**
-     * Test validationDefault method
-     *
-     * @return void
+     * Test validationDefault method.
      */
     public function testValidationDefault()
     {

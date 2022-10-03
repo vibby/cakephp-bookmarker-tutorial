@@ -1,31 +1,34 @@
 <?php
-namespace App\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
+namespace App\Test\Cakephp\TestCase\Controller;
+
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\UsersController Test Case
+ * App\Controller\BookmarksController Test Case.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
-class UsersControllerTest extends IntegrationTestCase
+class BookmarksControllerTest extends IntegrationTestCase
 {
-
     /**
-     * Fixtures
+     * Fixtures.
      *
      * @var array
      */
     public $fixtures = [
+        'app.bookmarks',
         'app.users',
         'app.apps',
-        'app.bookmarks',
-        'app.profiles'
+        'app.profiles',
+        'app.tags',
+        'app.bookmarks_tags',
     ];
 
     /**
-     * Test index method
-     *
-     * @return void
+     * Test index method.
      */
     public function testIndex()
     {
@@ -33,9 +36,7 @@ class UsersControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test view method
-     *
-     * @return void
+     * Test view method.
      */
     public function testView()
     {
@@ -43,9 +44,7 @@ class UsersControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test add method
-     *
-     * @return void
+     * Test add method.
      */
     public function testAdd()
     {
@@ -53,9 +52,7 @@ class UsersControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test edit method
-     *
-     * @return void
+     * Test edit method.
      */
     public function testEdit()
     {
@@ -63,9 +60,7 @@ class UsersControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test delete method
-     *
-     * @return void
+     * Test delete method.
      */
     public function testDelete()
     {
