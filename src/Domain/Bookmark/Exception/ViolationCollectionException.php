@@ -8,7 +8,7 @@ use Throwable;
 class ViolationCollectionException extends Exception
 {
     /** @var array<string> */
-    public array $violationCollection;
+    public readonly array $violationCollection;
 
     /**
      * @param array<string> $violationCollection

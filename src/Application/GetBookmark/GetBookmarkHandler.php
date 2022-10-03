@@ -7,12 +7,9 @@ use Domain\Bookmark\Repository\BookmarkRepository;
 
 class GetBookmarkHandler
 {
-    private BookmarkRepository $bookmarkRepository;
-
     public function __construct(
-        BookmarkRepository $bookmarkRepository
+        private readonly BookmarkRepository $bookmarkRepository
     ) {
-        $this->bookmarkRepository = $bookmarkRepository;
     }
 
     public function __invoke(

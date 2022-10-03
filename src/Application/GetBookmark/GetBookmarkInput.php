@@ -4,5 +4,8 @@ namespace Application\GetBookmark;
 
 class GetBookmarkInput
 {
-    public int $id;
+    public function __construct(
+        public readonly int $id,
+    ) {
+    }
 }

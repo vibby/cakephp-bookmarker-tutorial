@@ -4,13 +4,15 @@ namespace Application\UpdateBookmark;
 
 class UpdateBookmarkInput
 {
-    public int $id;
-    public string $title;
-    public string $url;
-    public string $description;
-
     /**
-     * @var array<string>
+     * @param array<string> $tagsTitle
      */
-    public array $tagsTitle;
+    public function __construct(
+        public readonly int $id,
+        public readonly string $title,
+        public readonly string $url,
+        public readonly string $description,
+        public readonly array $tagsTitle,
+    ) {
+    }
 }

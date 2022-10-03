@@ -12,21 +12,12 @@ use Domain\Bookmark\ValueObject\Url;
 
 class UpdateBookmarkHandler
 {
-    private BookmarkRepository $bookmarkRepository;
-    private BookmarkUpdater $updater;
-    private UpdateBookmarkValidator $inputValidator;
-    private BookmarkUpdaterValidator $updateValidator;
-
     public function __construct(
-        BookmarkRepository $bookmarkRepository,
-        BookmarkUpdater $updater,
-        UpdateBookmarkValidator $updateBookmarkValidator,
-        BookmarkUpdaterValidator $bookmarkUpdaterValidator
+        private readonly BookmarkRepository $bookmarkRepository,
+        private readonly BookmarkUpdater $updater,
+        private readonly UpdateBookmarkValidator $inputValidator,
+        private readonly BookmarkUpdaterValidator $updateValidator,
     ) {
-        $this->bookmarkRepository = $bookmarkRepository;
-        $this->updater = $updater;
-        $this->inputValidator = $updateBookmarkValidator;
-        $this->updateValidator = $bookmarkUpdaterValidator;
     }
 
     public function __invoke(

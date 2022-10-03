@@ -40,8 +40,7 @@ class BookmarksController extends AppController
      */
     public function view($id = null)
     {
-        $input = new GetBookmarkInput();
-        $input->id = $id;
+        $input = new GetBookmarkInput((int) $id);
         $handler = $this->Container->get(GetBookmarkHandler::class);
         $bookmarkModel = $handler($input);
         $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);
@@ -81,17 +80,18 @@ class BookmarksController extends AppController
     public function edit($id = null)
     {
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $input = new UpdateBookmarkInput();
-            $input->id = $id;
-            $input->title = $this->request->getData()['title'];
-            $input->url = $this->request->getData()['url'];
-            $input->description = $this->request->getData()['description'];
-            $input->tagsTitle = array_filter(array_unique(
-                array_map(
-                    'trim',
-                    explode(',', $this->request->getData()['tag_string'])
-                )
-            ));
+            $input = new UpdateBookmarkInput(
+                id: $id,
+                title: $this->request->getData()['title'],
+                url: $this->request->getData()['url'],
+                description: $this->request->getData()['description'],
+                tagsTitle: array_filter(array_unique(
+                    array_map(
+                        'trim',
+                        explode(',', $this->request->getData()['tag_string'])
+                    )
+                ))
+            );
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
 
             try {
@@ -103,8 +103,7 @@ class BookmarksController extends AppController
                 $this->Flash->error(implode(' ', $exception->violationCollection));
             }
         }
-        $input = new GetBookmarkInput();
-        $input->id = $id;
+        $input = new GetBookmarkInput((int) $id);
         $handler = $this->Container->get(GetBookmarkHandler::class);
         $bookmarkModel = $handler($input);
         $bookmark = $this->BookmarkTransformer->modelToEntity($bookmarkModel);

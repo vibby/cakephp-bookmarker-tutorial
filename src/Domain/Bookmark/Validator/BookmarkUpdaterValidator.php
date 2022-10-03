@@ -7,12 +7,9 @@ use Domain\Bookmark\Model\Bookmark;
 
 class BookmarkUpdaterValidator
 {
-    private CurrentUserProvider $currentUserProvider;
-
     public function __construct(
-        CurrentUserProvider $currentUserProvider
+        private readonly CurrentUserProvider $currentUserProvider,
     ) {
-        $this->currentUserProvider = $currentUserProvider;
     }
 
     /**

@@ -9,12 +9,9 @@ use Domain\Bookmark\ValueObject\Url;
 
 class BookmarkUpdater
 {
-    private TagRepository $tagRepository;
-
     public function __construct(
-        TagRepository $tagRepository
+        private readonly TagRepository $tagRepository,
     ) {
-        $this->tagRepository = $tagRepository;
     }
 
     /**
