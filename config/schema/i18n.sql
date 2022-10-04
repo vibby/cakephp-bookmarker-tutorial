@@ -7,6 +7,8 @@
 # Redistributions of files must retain the above copyright notice.
 # MIT License (http://www.opensource.org/licenses/mit-license.php)
 
+DROP TABLE IF EXISTS i18n;
+
 CREATE TABLE i18n (
 	id int(10) NOT NULL auto_increment,
 	locale varchar(6) NOT NULL,

@@ -9,6 +9,8 @@
 # Redistributions of files must retain the above copyright notice.
 # MIT License (http://www.opensource.org/licenses/mit-license.php)
 
+DROP TABLE IF EXISTS sessions;
+
 CREATE TABLE sessions (
   id varchar(40) NOT NULL default '',
   data text,

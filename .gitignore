@@ -23,6 +23,9 @@ Thumbs.db
 # php-cs-fixer
 .php-cs-fixer.cache
 
+# cypress
+/cypress/videos/*
+
 # Tool specific files #
 #######################
 # PHPUnit

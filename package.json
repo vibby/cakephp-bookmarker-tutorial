@@ -1,0 +1,25 @@
+{
+  "name": "bookmarker-tutorial",
+  "version": "1.0.0",
+  "description": "This is a sample application that is the result of following the [bookmarker tutorial](http://book.cakephp.org/3.0/en/quickstart.html).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vibby/cakephp-bookmarker-tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vibby/cakephp-bookmarker-tutorial/issues"
+  },
+  "homepage": "https://github.com/vibby/cakephp-bookmarker-tutorial#readme",
+  "devDependencies": {
+    "cypress": "^10.9.0"
+  }
+}
