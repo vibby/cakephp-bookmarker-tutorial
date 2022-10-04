@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use Application\GetBookmark\GetBookmarkHandler;
-use Application\GetBookmark\GetBookmarkInput;
-use Application\UpdateBookmark\UpdateBookmarkHandler;
-use Application\UpdateBookmark\UpdateBookmarkInput;
-use Domain\Bookmark\Exception\ViolationCollectionException;
+use App\Application\GetBookmark\GetBookmarkHandler;
+use App\Application\GetBookmark\GetBookmarkInput;
+use App\Application\UpdateBookmark\UpdateBookmarkHandler;
+use App\Application\UpdateBookmark\UpdateBookmarkInput;
+use App\Domain\Bookmark\Exception\ViolationCollectionException;
 
 /**
  * Bookmarks Controller.

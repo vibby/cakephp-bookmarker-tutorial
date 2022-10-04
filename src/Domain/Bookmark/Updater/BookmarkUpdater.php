@@ -1,11 +1,11 @@
 <?php
 
-namespace Domain\Bookmark\Updater;
+namespace App\Domain\Bookmark\Updater;
 
-use Domain\Bookmark\Model\Bookmark;
-use Domain\Bookmark\Model\Tag;
-use Domain\Bookmark\Repository\TagRepository;
-use Domain\Bookmark\ValueObject\Url;
+use App\Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Model\Tag;
+use App\Domain\Bookmark\Repository\TagRepository;
+use App\Domain\Bookmark\ValueObject\Url;
 
 class BookmarkUpdater
 {

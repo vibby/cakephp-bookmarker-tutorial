@@ -1,14 +1,14 @@
 <?php
 
-namespace Application\UpdateBookmark;
+namespace App\Application\UpdateBookmark;
 
-use Domain\Bookmark\Exception\ViolationCollectionException;
-use Domain\Bookmark\Model\Bookmark;
-use Domain\Bookmark\Repository\BookmarkRepository;
-use Domain\Bookmark\Updater\BookmarkUpdater;
-use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
-use Domain\Bookmark\ValueObject\InvalidValueException;
-use Domain\Bookmark\ValueObject\Url;
+use App\Domain\Bookmark\Exception\ViolationCollectionException;
+use App\Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Repository\BookmarkRepository;
+use App\Domain\Bookmark\Updater\BookmarkUpdater;
+use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
+use App\Domain\Bookmark\ValueObject\InvalidValueException;
+use App\Domain\Bookmark\ValueObject\Url;
 
 class UpdateBookmarkHandler
 {

@@ -2,10 +2,10 @@
 
 namespace App\Test\Domain\Bookmark\Validator;
 
-use Domain\Bookmark\Context\CurrentUserProvider;
-use Domain\Bookmark\Model\Bookmark;
-use Domain\Bookmark\Model\User;
-use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
+use App\Domain\Bookmark\Context\CurrentUserProvider;
+use App\Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Model\User;
+use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

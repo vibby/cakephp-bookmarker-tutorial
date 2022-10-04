@@ -2,9 +2,9 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Model\Tag as TagModel;
 use App\Model\Entity\Tag as TagEntity;
 use Cake\Controller\Component;
-use Domain\Bookmark\Model\Tag as TagModel;
 
 class TagTransformerComponent extends Component
 {

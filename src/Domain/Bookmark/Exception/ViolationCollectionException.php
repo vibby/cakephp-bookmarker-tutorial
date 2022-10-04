@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Bookmark\Exception;
+namespace App\Domain\Bookmark\Exception;
 
 use Exception;
 use Throwable;

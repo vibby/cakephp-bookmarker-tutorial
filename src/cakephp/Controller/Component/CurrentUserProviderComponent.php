@@ -2,11 +2,11 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Context\CurrentUserProvider;
+use App\Domain\Bookmark\Model\User as UserModel;
 use App\Model\Entity\User;
 use Cake\Controller\Component;
 use Cake\Controller\Component\AuthComponent;
-use Domain\Bookmark\Context\CurrentUserProvider;
-use Domain\Bookmark\Model\User as UserModel;
 
 /**
  * @property UserTransformerComponent $UserTransformer

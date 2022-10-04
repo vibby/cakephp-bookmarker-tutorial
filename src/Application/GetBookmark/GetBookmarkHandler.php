@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\GetBookmark;
+namespace App\Application\GetBookmark;
 
-use Domain\Bookmark\Model\Bookmark;
-use Domain\Bookmark\Repository\BookmarkRepository;
+use App\Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Repository\BookmarkRepository;
 
 class GetBookmarkHandler
 {

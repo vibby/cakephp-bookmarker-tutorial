@@ -2,9 +2,9 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Model\User as UserModel;
 use App\Model\Entity\User as UserEntity;
 use Cake\Controller\Component;
-use Domain\Bookmark\Model\User as UserModel;
 
 class UserTransformerComponent extends Component
 {

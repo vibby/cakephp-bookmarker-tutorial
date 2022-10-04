@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\GetBookmark;
+namespace App\Application\GetBookmark;
 
 class GetBookmarkInput
 {

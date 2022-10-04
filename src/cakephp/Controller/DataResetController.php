@@ -16,9 +16,9 @@ class DataResetController extends AppController
     public function dbReset()
     {
         $conn = ConnectionManager::get('default');
-        $conn->execute(file_get_contents(__DIR__.'/../../../config/schema/app.sql'));
-        $conn->execute(file_get_contents(__DIR__.'/../../../config/schema/i18n.sql'));
-        $conn->execute(file_get_contents(__DIR__.'/../../../config/schema/sessions.sql'));
+        $conn->execute(file_get_contents(__DIR__.'/../../../configCakephp/schema/app.sql'));
+        $conn->execute(file_get_contents(__DIR__.'/../../../configCakephp/schema/i18n.sql'));
+        $conn->execute(file_get_contents(__DIR__.'/../../../configCakephp/schema/sessions.sql'));
 
         return new Response();
     }

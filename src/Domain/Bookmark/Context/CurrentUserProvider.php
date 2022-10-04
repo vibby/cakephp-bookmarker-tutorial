@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Bookmark\Context;
+namespace App\Domain\Bookmark\Context;
 
-use Domain\Bookmark\Model\User;
+use App\Domain\Bookmark\Model\User;
 
 interface CurrentUserProvider
 {

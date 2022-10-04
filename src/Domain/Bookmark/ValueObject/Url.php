@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Bookmark\ValueObject;
+namespace App\Domain\Bookmark\ValueObject;
 
 class Url
 {

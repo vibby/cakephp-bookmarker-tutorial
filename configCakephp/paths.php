@@ -44,7 +44,7 @@ define('APP', ROOT . DS . APP_DIR . DS);
 /*
  * Path to the config directory.
  */
-define('CONFIG', ROOT . DS . 'config' . DS);
+define('CONFIG', ROOT . DS . 'configCakephp' . DS);
 
 /*
  * File path to the webroot directory.

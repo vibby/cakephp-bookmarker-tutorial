@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Bookmark\Model;
+namespace App\Domain\Bookmark\Model;
 
 class Tag
 {

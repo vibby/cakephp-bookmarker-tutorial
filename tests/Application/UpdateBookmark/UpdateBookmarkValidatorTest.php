@@ -2,8 +2,8 @@
 
 namespace App\Test\Application\UpdateBookmark;
 
-use Application\UpdateBookmark\UpdateBookmarkInput;
-use Application\UpdateBookmark\UpdateBookmarkValidator;
+use App\Application\UpdateBookmark\UpdateBookmarkInput;
+use App\Application\UpdateBookmark\UpdateBookmarkValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

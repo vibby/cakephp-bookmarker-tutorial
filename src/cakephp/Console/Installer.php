@@ -81,11 +81,11 @@ class Installer
      */
     public static function createAppLocalConfig($dir, $io)
     {
-        $appLocalConfig = $dir.'/config/app_local.php';
-        $appLocalConfigTemplate = $dir.'/config/app_local.example.php';
+        $appLocalConfig = $dir.'/configCakephp/app_local.php';
+        $appLocalConfigTemplate = $dir.'/configCakephp/app_local.example.php';
         if (!file_exists($appLocalConfig)) {
             copy($appLocalConfigTemplate, $appLocalConfig);
-            $io->write('Created `config/app_local.php` file');
+            $io->write('Created `configCakephp/app_local.php` file');
         }
     }
 
@@ -194,7 +194,7 @@ class Installer
      */
     public static function setSecuritySaltInFile($dir, $io, $newKey, $file)
     {
-        $config = $dir.'/config/'.$file;
+        $config = $dir.'/configCakephp/'.$file;
         $content = file_get_contents($config);
 
         $content = str_replace('__SALT__', $newKey, $content, $count);
@@ -207,7 +207,7 @@ class Installer
 
         $result = file_put_contents($config, $content);
         if ($result) {
-            $io->write('Updated Security.salt value in config/'.$file);
+            $io->write('Updated Security.salt value in configCakephp/'.$file);
 
             return;
         }
@@ -224,7 +224,7 @@ class Installer
      */
     public static function setAppNameInFile($dir, $io, $appName, $file)
     {
-        $config = $dir.'/config/'.$file;
+        $config = $dir.'/configCakephp/'.$file;
         $content = file_get_contents($config);
         $content = str_replace('__APP_NAME__', $appName, $content, $count);
 
@@ -236,7 +236,7 @@ class Installer
 
         $result = file_put_contents($config, $content);
         if ($result) {
-            $io->write('Updated __APP_NAME__ value in config/'.$file);
+            $io->write('Updated __APP_NAME__ value in configCakephp/'.$file);
 
             return;
         }

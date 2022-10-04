@@ -1,9 +1,9 @@
 <?php
 
-namespace Domain\Bookmark\Validator;
+namespace App\Domain\Bookmark\Validator;
 
-use Domain\Bookmark\Context\CurrentUserProvider;
-use Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Context\CurrentUserProvider;
+use App\Domain\Bookmark\Model\Bookmark;
 
 class BookmarkUpdaterValidator
 {

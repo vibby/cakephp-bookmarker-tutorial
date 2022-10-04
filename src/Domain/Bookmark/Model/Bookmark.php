@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Bookmark\Model;
+namespace App\Domain\Bookmark\Model;
 
-use Domain\Bookmark\ValueObject\Url;
+use App\Domain\Bookmark\ValueObject\Url;
 
 class Bookmark
 {

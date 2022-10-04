@@ -2,13 +2,13 @@
 
 namespace App\Controller\Component;
 
-use Application\GetBookmark\GetBookmarkHandler;
-use Application\UpdateBookmark\UpdateBookmarkHandler;
-use Application\UpdateBookmark\UpdateBookmarkValidator;
+use App\Application\GetBookmark\GetBookmarkHandler;
+use App\Application\UpdateBookmark\UpdateBookmarkHandler;
+use App\Application\UpdateBookmark\UpdateBookmarkValidator;
+use App\Domain\Bookmark\Updater\BookmarkUpdater;
+use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
-use Domain\Bookmark\Updater\BookmarkUpdater;
-use Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use Exception;
 
 /**

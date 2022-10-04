@@ -2,10 +2,10 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Model\Bookmark as BookmarkModel;
+use App\Domain\Bookmark\ValueObject\Url;
 use App\Model\Entity\Bookmark;
 use Cake\Controller\Component;
-use Domain\Bookmark\Model\Bookmark as BookmarkModel;
-use Domain\Bookmark\ValueObject\Url;
 
 /**
  * @property TagTransformerComponent  $TagTransformer

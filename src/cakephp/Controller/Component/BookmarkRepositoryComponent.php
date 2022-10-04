@@ -2,12 +2,12 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Model\Bookmark as BookmarkModel;
+use App\Domain\Bookmark\Repository\BookmarkRepository;
 use App\Model\Entity\Bookmark;
 use App\Model\Table\BookmarksTable;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
-use Domain\Bookmark\Model\Bookmark as BookmarkModel;
-use Domain\Bookmark\Repository\BookmarkRepository;
 
 /**
  * @property BookmarksTable               $Bookmarks

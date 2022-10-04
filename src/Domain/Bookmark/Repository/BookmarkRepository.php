@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Bookmark\Repository;
+namespace App\Domain\Bookmark\Repository;
 
-use Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Model\Bookmark;
 
 interface BookmarkRepository
 {

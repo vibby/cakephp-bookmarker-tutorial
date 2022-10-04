@@ -2,11 +2,11 @@
 
 namespace App\Controller\Component;
 
+use App\Domain\Bookmark\Model\Tag;
+use App\Domain\Bookmark\Repository\TagRepository;
 use App\Model\Table\BookmarksTable;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
-use Domain\Bookmark\Model\Tag;
-use Domain\Bookmark\Repository\TagRepository;
 
 /**
  * @property BookmarksTable $Bookmarks

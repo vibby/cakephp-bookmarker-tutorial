@@ -1,7 +1,7 @@
 # CakePHP specific files #
 ##########################
-/config/app_local.php
-/config/.env
+/configCakephp/app_local.php
+/configCakephp/.env
 /logs/*
 /tmp/*
 /vendor/*
@@ -57,3 +57,18 @@ nbproject/*
 # yarn
 yarn-debug.log
 yarn-error.log
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/configCakephp/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
