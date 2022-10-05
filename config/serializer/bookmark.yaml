@@ -1,0 +1,12 @@
+App\Domain\Bookmark\Model\Bookmark:
+    attributes:
+        title:
+            groups: ['bookmark:read']
+        url:
+            groups: ['bookmark:read']
+        description:
+            groups: ['bookmark:read']
+        user:
+            groups: ['bookmark:read']
+        tags:
+            groups: ['bookmark:read']

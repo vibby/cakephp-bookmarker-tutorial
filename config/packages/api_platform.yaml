@@ -1,0 +1,24 @@
+api_platform:
+  defaults:
+    pagination_items_per_page: 20
+    pagination_maximum_items_per_page: 100
+  collection:
+    pagination:
+      page_parameter_name: page
+      items_per_page_parameter_name: itemsPerPage
+  mapping:
+    paths:
+      - '%kernel.project_dir%/config/api_platform/bookmark'
+  formats:
+    jsonld: [ 'application/json-ld' ]
+    html: [ 'text/html' ]
+    json: [ 'application/json' ]
+    form: [ 'multipart/form-data' ]
+  patch_formats:
+    json: [ 'application/merge-patch+json' ]
+  swagger:
+    versions: [ 3 ]
+    api_keys:
+      apiKey:
+        name: Authorization
+        type: header

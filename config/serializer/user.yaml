@@ -1,0 +1,4 @@
+App\Domain\Bookmark\Model\User:
+    attributes:
+        email:
+            groups: ['bookmark:read']

@@ -4,6 +4,7 @@ namespace App\Domain\Bookmark\Model;
 
 use App\Domain\Bookmark\ValueObject\Url;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 
 class Bookmark
 {
@@ -13,8 +14,8 @@ class Bookmark
     public string $description;
     public User $user;
 
-    /** @var array<Tag> */
-    public array $tags;
+    /** @var array<Tag>|Collection<int, Tag> */
+    public array|Collection $tags;
 
     public DateTimeImmutable $created;
     public DateTimeImmutable $modified;

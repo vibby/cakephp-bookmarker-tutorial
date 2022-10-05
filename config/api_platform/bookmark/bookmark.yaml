@@ -1,0 +1,6 @@
+App\Domain\Bookmark\Model\Bookmark:
+    normalizationContext:
+        groups: ['bookmark:read']
+    operations:
+        ApiPlatform\Metadata\GetCollection: ~
+        ApiPlatform\Metadata\Get: ~

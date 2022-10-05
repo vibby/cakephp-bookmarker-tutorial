@@ -3,6 +3,7 @@
 namespace App\Domain\Bookmark\Model;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 
 class User
 {
@@ -11,8 +12,8 @@ class User
     public string $password;
     public \DateTime $dateOfBirth;
 
-    /** @var array<Bookmark> */
-    public array $bookmarks;
+    /** @var array<Bookmark>|Collection<int, Tag> */
+    public array|Collection $bookmarks;
 
     public DateTimeImmutable $created;
     public DateTimeImmutable $modified;
