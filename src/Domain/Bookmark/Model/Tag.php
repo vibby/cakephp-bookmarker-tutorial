@@ -2,6 +2,8 @@
 
 namespace App\Domain\Bookmark\Model;
 
+use DateTimeImmutable;
+
 class Tag
 {
     public int $id;
@@ -9,4 +11,7 @@ class Tag
 
     /** @var array<Bookmark> */
     public array $bookmarks;
+
+    public DateTimeImmutable $created;
+    public DateTimeImmutable $modified;
 }

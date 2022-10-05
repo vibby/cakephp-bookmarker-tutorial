@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Bookmark\Model\Bookmark" table="bookmarks">
+        <indexes>
+            <index columns="user_id" name="user_key" />
+        </indexes>
+        <id name="id" type="integer">
+            <generator />
+        </id>
+        <field name="title" length="50" nullable="true" />
+        <field name="description" nullable="true" length="2048" />
+        <field type="vo_url" name="url" length="2048" nullable="true" />
+        <field name="created" type="datetime_immutable" nullable="true" />
+        <field name="modified" type="datetime_immutable" nullable="true" />
+        <many-to-one field="user" target-entity="User" inversed-by="bookmarks">
+            <join-columns>
+                <join-column name="user_id" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+        <many-to-many field="tags" target-entity="Tag" inversed-by="bookmarks">
+            <join-table name="bookmarks_tags">
+                <join-columns>
+                    <join-column name="bookmark_id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="tag_id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

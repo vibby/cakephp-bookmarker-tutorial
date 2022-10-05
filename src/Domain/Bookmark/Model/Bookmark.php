@@ -3,6 +3,7 @@
 namespace App\Domain\Bookmark\Model;
 
 use App\Domain\Bookmark\ValueObject\Url;
+use DateTimeImmutable;
 
 class Bookmark
 {
@@ -14,4 +15,7 @@ class Bookmark
 
     /** @var array<Tag> */
     public array $tags;
+
+    public DateTimeImmutable $created;
+    public DateTimeImmutable $modified;
 }

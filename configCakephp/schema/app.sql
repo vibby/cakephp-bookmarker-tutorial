@@ -8,26 +8,26 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created DATETIME,
-    modified DATETIME
+    created DATETIME COMMENT '(DC2Type:datetime_immutable)',
+    modified DATETIME COMMENT '(DC2Type:datetime_immutable)'
 );
 
 CREATE TABLE bookmarks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     title VARCHAR(50),
-    description TEXT,
-    url TEXT,
-    created DATETIME,
-    modified DATETIME,
+    description VARCHAR(2048),
+    url VARCHAR(2048) COMMENT '(DC2Type:vo_url)',
+    created DATETIME COMMENT '(DC2Type:datetime_immutable)',
+    modified DATETIME COMMENT '(DC2Type:datetime_immutable)',
     FOREIGN KEY user_key (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE tags (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
-    created DATETIME,
-    modified DATETIME,
+    created DATETIME COMMENT '(DC2Type:datetime_immutable)',
+    modified DATETIME COMMENT '(DC2Type:datetime_immutable)',
     UNIQUE KEY (title)
 );
 
@@ -35,8 +35,9 @@ CREATE TABLE bookmarks_tags (
     bookmark_id INT NOT NULL,
     tag_id INT NOT NULL,
     PRIMARY KEY (bookmark_id, tag_id),
-    FOREIGN KEY tag_key(tag_id) REFERENCES tags(id),
-    FOREIGN KEY bookmark_key(bookmark_id) REFERENCES bookmarks(id)
+    KEY IDX_CD7027B7BAD26311 (tag_id),
+    FOREIGN KEY bookmarks_tags_ibfk_1(tag_id) REFERENCES tags(id),
+    FOREIGN KEY bookmarks_tags_ibfk_2(bookmark_id) REFERENCES bookmarks(id)
 );
 
 -- Insert Sample Data
