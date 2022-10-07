@@ -3,13 +3,14 @@
 namespace App\Application\UpdateBookmark;
 
 use App\Application\Handler;
-use App\Domain\Bookmark\Exception\ViolationCollectionException;
 use App\Domain\Bookmark\Model\Bookmark;
 use App\Domain\Bookmark\Repository\BookmarkRepository;
 use App\Domain\Bookmark\Updater\BookmarkUpdater;
 use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
-use App\Domain\Bookmark\ValueObject\InvalidValueException;
 use App\Domain\Bookmark\ValueObject\Url;
+use App\Domain\Bookmark\ValueObject\ValueObjectFactory;
+use App\Domain\Bookmark\Violation\Violation;
+use App\Domain\Bookmark\Violation\ViolationCollector;
 
 class UpdateBookmarkHandler implements Handler
 {
@@ -18,34 +19,25 @@ class UpdateBookmarkHandler implements Handler
         private readonly BookmarkUpdater $updater,
         private readonly UpdateBookmarkValidator $inputValidator,
         private readonly BookmarkUpdaterValidator $updateValidator,
+        private readonly ViolationCollector $violationCollector,
+        private readonly ValueObjectFactory $valueObjectFactory,
     ) {
     }
 
     public function __invoke(
-        UpdateBookmarkInput $input
-    ): ?Bookmark {
-        $errors = $this->inputValidator->validate($input);
+        UpdateBookmarkInput $input,
+    ): Bookmark|ViolationCollector {
+        $this->inputValidator->validate($input);
         $bookmark = $this->bookmarkRepository->findById($input->id);
         if (!$bookmark) {
-            $errors[] = 'Bookmark does not exists.';
+            $this->violationCollector->collect(new Violation('Bookmark does not exists.'));
         } else {
-            $errors = array_merge($errors, $this->updateValidator->validate($bookmark));
+            $this->updateValidator->validate($bookmark);
         }
 
-        try {
-            $url = Url::fromString($input->url);
-        } catch (InvalidValueException $exception) {
-            $url = null;
-            $errors[] = $exception->getMessage();
-        }
-        if (count($errors)) {
-            throw new ViolationCollectionException('Errors occured with your request', $errors);
-        }
-        if (!$bookmark instanceof Bookmark) {
-            throw new \LogicException('Bookmark is undefined');
-        }
-        if (!$url instanceof Url) {
-            throw new \LogicException('Url is undefined');
+        $url = $this->valueObjectFactory->makeFromString(Url::class, $input->url, 'url');
+        if ($this->violationCollector->hasViolations() || !$bookmark instanceof Bookmark || !$url instanceof Url) {
+            return $this->violationCollector;
         }
         $bookmark = $this->updater->update(
             $bookmark,
@@ -54,10 +46,7 @@ class UpdateBookmarkHandler implements Handler
             $input->description,
             $input->tagsTitle
         );
-
-        if ($bookmark instanceof Bookmark) {
-            $this->bookmarkRepository->persist($bookmark);
-        }
+        $this->bookmarkRepository->persist($bookmark);
 
         return $bookmark;
     }

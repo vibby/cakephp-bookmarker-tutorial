@@ -6,7 +6,9 @@ use App\Application\GetBookmark\GetBookmarkHandler;
 use App\Application\GetBookmark\GetBookmarkInput;
 use App\Application\UpdateBookmark\UpdateBookmarkHandler;
 use App\Application\UpdateBookmark\UpdateBookmarkInput;
-use App\Domain\Bookmark\Exception\ViolationCollectionException;
+use App\Domain\Bookmark\Violation\Violation;
+use App\Domain\Bookmark\Violation\ViolationCollector;
+use App\Model\Entity\Bookmark;
 
 /**
  * Bookmarks Controller.
@@ -93,14 +95,16 @@ class BookmarksController extends AppController
                 ))
             );
             $handler = $this->Container->get(UpdateBookmarkHandler::class);
-
-            try {
-                $handler($input);
+            $return = $handler($input);
+            if ($return instanceof Bookmark) {
                 $this->Flash->success('The bookmark has been saved.');
 
                 return $this->redirect(['action' => 'index']);
-            } catch (ViolationCollectionException $exception) {
-                $this->Flash->error(implode(' ', $exception->violationCollection));
+            }
+            if ($return instanceof ViolationCollector) {
+                $this->Flash->error(array_reduce($return->getViolations(), function (string $stack, Violation $violation) {
+                    return $stack.' '.$violation->message;
+                }, ''));
             }
         }
         $input = new GetBookmarkInput((int) $id);

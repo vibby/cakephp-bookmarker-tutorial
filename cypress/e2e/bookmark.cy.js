@@ -23,7 +23,7 @@ describe('Bookmarks management', () => {
 
         cy.url().should('contain', '/bookmarks/edit/')
         cy.get('input[name="title"]').type(" goood");
-        cy.get('textarea[name="description"]').type(" Some more content.");
+        cy.get('input[name="description"]').type(" Some more content.");
         cy.get('button[type="submit"]').click();
 
         cy.url().should('contain', '/bookmarks')

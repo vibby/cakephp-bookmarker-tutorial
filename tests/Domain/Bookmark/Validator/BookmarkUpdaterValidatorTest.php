@@ -6,6 +6,9 @@ use App\Domain\Bookmark\Context\CurrentUserProvider;
 use App\Domain\Bookmark\Model\Bookmark;
 use App\Domain\Bookmark\Model\User;
 use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
+use App\Domain\Bookmark\Violation\Violation;
+use App\Domain\Bookmark\Violation\ViolationCollector;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,11 +19,16 @@ use PHPUnit\Framework\TestCase;
 class BookmarkUpdaterValidatorTest extends TestCase
 {
     private BookmarkUpdaterValidator $validator;
+    private ViolationCollector|MockObject $violationCollector;
 
     public function setUp(): void
     {
         $this->currentUserProvider = $this->createMock(CurrentUserProvider::class);
-        $this->validator = new BookmarkUpdaterValidator($this->currentUserProvider);
+        $this->violationCollector = $this->createMock(ViolationCollector::class);
+        $this->validator = new BookmarkUpdaterValidator(
+            $this->currentUserProvider,
+            $this->violationCollector,
+        );
     }
 
     public function testSameUser()
@@ -34,7 +42,9 @@ class BookmarkUpdaterValidatorTest extends TestCase
         $user2->id = 12;
         $bookmark->user = $user2;
 
-        self::assertEmpty($this->validator->validate($bookmark));
+        $this->violationCollector->expects($this->never())->method('collect');
+
+        $this->validator->validate($bookmark);
     }
 
     public function testDifferentUser()
@@ -48,10 +58,14 @@ class BookmarkUpdaterValidatorTest extends TestCase
         $user2->id = 13;
         $bookmark->user = $user2;
 
-        self::assertEquals($this->validator->validate($bookmark), ['You cannot modify that bookmark since you are not the owner']);
+        $this->violationCollector->expects($this->once())->method('collect')->with(
+            new Violation('You cannot modify that bookmark since you are not the owner')
+        );
+
+        $this->validator->validate($bookmark);
     }
 
-    public function acceptNullUrer()
+    public function acceptNullUser()
     {
         $this->currentUserProvider->method('getCurrentUser')->willReturn(null);
 
@@ -60,6 +74,8 @@ class BookmarkUpdaterValidatorTest extends TestCase
         $user2->id = 13;
         $bookmark->user = $user2;
 
-        self::assertEmpty($this->validator->validate($bookmark));
+        $this->violationCollector->expects($this->never())->method('collect');
+
+        $this->validator->validate($bookmark);
     }
 }

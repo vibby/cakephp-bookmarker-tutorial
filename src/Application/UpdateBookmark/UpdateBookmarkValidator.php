@@ -2,22 +2,24 @@
 
 namespace App\Application\UpdateBookmark;
 
+use App\Domain\Bookmark\Violation\Violation;
+use App\Domain\Bookmark\Violation\ViolationCollector;
+
 class UpdateBookmarkValidator
 {
-    /**
-     * @return array<string>
-     */
+    public function __construct(
+        private readonly ViolationCollector $violationCollector,
+    ) {
+    }
+
     public function validate(
         UpdateBookmarkInput $input
-    ): array {
-        $violations = [];
+    ): void {
         if (mb_strlen($input->title) < 3) {
-            $violations[] = 'Title must be at last 3 char long.';
+            $this->violationCollector->collect(new Violation('Title must be at last 3 char long.', 'title'));
         }
         if (mb_strlen($input->title) > 1024) {
-            $violations[] = 'Title cannot be more than 1024 char long.';
+            $this->violationCollector->collect(new Violation('Title cannot be more than 1024 char long.', 'title'));
         }
-
-        return $violations;
     }
 }

@@ -4,25 +4,22 @@ namespace App\Domain\Bookmark\Validator;
 
 use App\Domain\Bookmark\Context\CurrentUserProvider;
 use App\Domain\Bookmark\Model\Bookmark;
+use App\Domain\Bookmark\Violation\Violation;
+use App\Domain\Bookmark\Violation\ViolationCollector;
 
 class BookmarkUpdaterValidator
 {
     public function __construct(
         private readonly CurrentUserProvider $currentUserProvider,
+        private readonly ViolationCollector $violationCollector,
     ) {
     }
 
-    /**
-     * @return array<string>
-     */
-    public function validate(Bookmark $bookmark): array
+    public function validate(Bookmark $bookmark): void
     {
-        $violations = [];
         $currentUser = $this->currentUserProvider->getCurrentUser();
         if (null !== $currentUser && $currentUser->id !== $bookmark->user->id) {
-            $violations[] = 'You cannot modify that bookmark since you are not the owner';
+            $this->violationCollector->collect(new Violation('You cannot modify that bookmark since you are not the owner'));
         }
-
-        return $violations;
     }
 }
