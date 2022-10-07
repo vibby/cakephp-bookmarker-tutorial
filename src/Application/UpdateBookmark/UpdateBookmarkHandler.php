@@ -2,6 +2,7 @@
 
 namespace App\Application\UpdateBookmark;
 
+use App\Application\Handler;
 use App\Domain\Bookmark\Exception\ViolationCollectionException;
 use App\Domain\Bookmark\Model\Bookmark;
 use App\Domain\Bookmark\Repository\BookmarkRepository;
@@ -10,7 +11,7 @@ use App\Domain\Bookmark\Validator\BookmarkUpdaterValidator;
 use App\Domain\Bookmark\ValueObject\InvalidValueException;
 use App\Domain\Bookmark\ValueObject\Url;
 
-class UpdateBookmarkHandler
+class UpdateBookmarkHandler implements Handler
 {
     public function __construct(
         private readonly BookmarkRepository $bookmarkRepository,

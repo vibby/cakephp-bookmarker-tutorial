@@ -23,7 +23,7 @@ class BookmarkUpdater
         Url $url,
         string $description,
         array $tagsTitle
-    ): ?Bookmark {
+    ): Bookmark {
         $bookmark->title = $title;
         $bookmark->url = $url;
         $bookmark->description = $description;

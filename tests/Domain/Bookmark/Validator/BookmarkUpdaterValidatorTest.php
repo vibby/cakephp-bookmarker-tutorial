@@ -51,7 +51,7 @@ class BookmarkUpdaterValidatorTest extends TestCase
         self::assertEquals($this->validator->validate($bookmark), ['You cannot modify that bookmark since you are not the owner']);
     }
 
-    public function testCannotFindCurrentUser()
+    public function acceptNullUrer()
     {
         $this->currentUserProvider->method('getCurrentUser')->willReturn(null);
 
@@ -60,6 +60,6 @@ class BookmarkUpdaterValidatorTest extends TestCase
         $user2->id = 13;
         $bookmark->user = $user2;
 
-        self::assertEquals($this->validator->validate($bookmark), ['You cannot modify that bookmark since you are not the owner']);
+        self::assertEmpty($this->validator->validate($bookmark));
     }
 }

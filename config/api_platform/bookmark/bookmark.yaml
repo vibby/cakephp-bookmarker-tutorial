@@ -4,3 +4,6 @@ App\Domain\Bookmark\Model\Bookmark:
     operations:
         ApiPlatform\Metadata\GetCollection: ~
         ApiPlatform\Metadata\Get: ~
+        ApiPlatform\Metadata\Patch:
+            input: App\Application\UpdateBookmark\UpdateBookmarkInput
+            processor: ApiPlatform\Symfony\Messenger\Processor

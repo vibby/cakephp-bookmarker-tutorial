@@ -25,3 +25,5 @@ services:
     _instanceof:
         Symfony\Component\Serializer\Normalizer\NormalizerInterface:
             tags: [ 'serializer.normalizer' ]
+        App\Application\Handler:
+            tags: [ 'messenger.message_handler' ]

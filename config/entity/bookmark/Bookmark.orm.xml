@@ -20,6 +20,9 @@
             </join-columns>
         </many-to-one>
         <many-to-many field="tags" target-entity="Tag" inversed-by="bookmarks">
+            <cascade>
+                <cascade-persist />
+            </cascade>
             <join-table name="bookmarks_tags">
                 <join-columns>
                     <join-column name="bookmark_id"/>

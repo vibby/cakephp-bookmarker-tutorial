@@ -2,10 +2,11 @@
 
 namespace App\Application\GetBookmark;
 
+use App\Application\Handler;
 use App\Domain\Bookmark\Model\Bookmark;
 use App\Domain\Bookmark\Repository\BookmarkRepository;
 
-class GetBookmarkHandler
+class GetBookmarkHandler implements Handler
 {
     public function __construct(
         private readonly BookmarkRepository $bookmarkRepository
